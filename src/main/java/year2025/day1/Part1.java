@@ -4,42 +4,30 @@ import java.util.Scanner;
 
 public class Part1 {
   public static void main(String[] args) {
-    int totalZeroes = 0;
-
     Scanner sc = new Scanner(System.in);
 
-    String seq;
-    String direction;
-    int number;
     int position = 50;
+    int totalZeroes = 0;
 
     while (sc.hasNext()) {
-      seq = sc.next();
-      direction = seq.substring(0, 1);
-      number = Integer.parseInt(seq.substring(1));
-      number = number % 100;
+      String seq = sc.next();
+      char direction = seq.charAt(0);
+      int number = Integer.parseInt(seq.substring(1)) % 100;
 
-      if (direction.equalsIgnoreCase("L")) {
-        System.out.println("Moving " + number + " positions to the left");
+      if (direction == 'L' || direction == 'l') {
         position -= number;
-        if (position < 0) {
-          position = 100 - Math.abs(position);
-        }
-        System.out.println("Moved " + number + " to the left. Current position is " + position);
-      } else {
-        System.out.println("Moving " + number + " positions to the right");
+      } else { // R
         position += number;
-        if (position > 0) {
-          position = position % 100;
-        }
-        System.out.println("Moved " + number + " to the right. Current position is " + position);
       }
+
+      // Normalizar posición en rango 0–99
+      position = ((position % 100) + 100) % 100;
 
       if (position == 0) {
         totalZeroes++;
       }
-
-      System.out.println(totalZeroes);
     }
+
+    System.out.println(totalZeroes);
   }
 }
