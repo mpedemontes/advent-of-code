@@ -22,22 +22,20 @@ public class Part1 {
   }
 
   private static List<Long> findInvalidIDsInRange(String range) {
-    long min = Long.parseLong(range.split("-")[0]);
-    long max = Long.parseLong(range.split("-")[1]);
+    String[] parts = range.split("-");
+    long min = Long.parseLong(parts[0]);
+    long max = Long.parseLong(parts[1]);
+
     List<Long> invalidIds = new ArrayList<>();
 
-    String firstHalf;
-    String secondHalf;
-    String stringValue;
     for (long i = min; i <= max; i++) {
-      stringValue = String.valueOf(i);
-      System.out.println("stringValue: " + stringValue);
-      if (stringValue.length() % 2 == 0) {
-        firstHalf = stringValue.substring(0, stringValue.length() / 2);
-        secondHalf = stringValue.substring(stringValue.length() / 2);
-        System.out.println("firstHalf: " + firstHalf);
-        System.out.println("secondHalf: " + secondHalf);
-        if (firstHalf.equals(secondHalf)) {
+      String s = String.valueOf(i);
+      int len = s.length();
+
+      if (len % 2 == 0) {
+        String first = s.substring(0, len / 2);
+        String second = s.substring(len / 2);
+        if (first.equals(second)) {
           invalidIds.add(i);
         }
       }
